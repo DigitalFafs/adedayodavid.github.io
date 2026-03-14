@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Adedayo David Fafioye — Portfolio</title>
+  <meta name="description" content="Adedayo David — Graphic Designer. Ad creatives, social ads, branding, landing pages. Portfolio." />
+  <style>
+    :root{
+      --bg:#0f1720;
+      --card:#0b1220;
+      --muted:#97a0aa;
+      --accent:#06b6d4;
+      --white:#f8fafc;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxw:980px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--white);background:linear-gradient(180deg,#071021 0%, #071829 100%);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+    header.hero{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:999px;overflow:hidden;border:4px solid rgba(255,255,255,0.06);background:linear-gradient(135deg,var(--glass),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .role{color:var(--muted);margin-top:8px;font-size:14px}
+    .contact{margin-top:12px;color:var(--muted);font-size:13px}
+    .cta-row{margin-top:14px;display:flex;gap:10px;align-items:center}
+    .btn{background:var(--accent);color:#062024;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .ghost{border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px;color:var(--muted);text-decoration:none}
+    .intro{margin-top:18px;color:var(--muted);line-height:1.5}
+
+    /* Projects */
+    section.projects{margin-top:28px}
+    .project{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;margin-bottom:18px;display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:center}
+    .project .meta{color:var(--muted)}
+    .project h3{margin:0 0 6px 0}
+    .project p{margin:0 0 10px 0}
+
+    /* Carousel */
+    .carousel{position:relative;overflow:hidden;border-radius:10px;background:#02060a;border:1px solid rgba(255,255,255,0.03)}
+    .slides{display:flex;transition:transform 300ms ease}
+    .slides img{width:100%;height:260px;object-fit:cover;display:block}
+    .carousel .dots{position:absolute;left:12px;bottom:8px;display:flex;gap:6px}
+    .dot{width:9px;height:9px;border-radius:99px;background:rgba(255,255,255,0.2)}
+    .dot.active{background:var(--accent)}
+    .project-actions{display:flex;gap:8px}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* Case studies */
+    .case{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;margin-bottom:18px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    /* ─── LOGO SHOWCASE ─────────────────────────────────── */
+    section.logos{margin-top:36px}
+    .logos-heading{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .logos-heading h2{margin:0}
+    .logos-heading .tag{font-size:12px;background:rgba(6,182,212,0.12);color:var(--accent);border:1px solid rgba(6,182,212,0.25);padding:3px 10px;border-radius:99px}
+    .logo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+    .logo-card{
+      background:linear-gradient(145deg,rgba(255,255,255,0.035),rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:12px;
+      aspect-ratio:1/1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px;
+      cursor:pointer;
+      transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo-card:hover{
+      border-color:rgba(6,182,212,0.35);
+      transform:translateY(-3px);
+      box-shadow:0 8px 28px rgba(6,182,212,0.08);
+    }
+    .logo-card img{
+      width:100%;
+      height:70%;
+      object-fit:contain;
+      display:block;
+    }
+    .logo-card .logo-label{
+      font-size:11px;
+      color:var(--muted);
+      text-align:center;
+      line-height:1.3;
+    }
+    /* placeholder shimmer when no image yet */
+    .logo-card .logo-placeholder{
+      width:60%;
+      height:50%;
+      border-radius:8px;
+      background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);
+      background-size:200% 100%;
+      animation:shimmer 1.8s infinite;
+    }
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Logo lightbox */
+    #logoModal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(4,7,12,0.92);
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:999;
+    }
+    #logoModal.open{display:flex}
+    #logoModal .modal-box{
+      position:relative;
+      max-width:520px;
+      width:100%;
+      background:linear-gradient(180deg,#071021,#081727);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px;
+      padding:24px;
+      text-align:center;
+    }
+    #logoModal img{max-width:100%;max-height:360px;object-fit:contain;border-radius:8px}
+    #logoModal .modal-title{margin-top:14px;font-size:15px;font-weight:600}
+    #logoModal .modal-close{
+      position:absolute;top:12px;right:14px;
+      background:transparent;border:none;
+      color:var(--muted);font-size:20px;cursor:pointer;
+      line-height:1;
+    }
+
+    /* ─── VIEW MORE GALLERY ─────────────────────────────── */
+    section.more-work{margin-top:40px}
+    .more-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .more-heading h2{margin:0}
+    .more-heading .folder-badge{
+      font-size:12px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+      padding:4px 12px;
+      border-radius:99px;
+      display:flex;align-items:center;gap:6px;
+    }
+    .more-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+    }
+    .more-card{
+      position:relative;
+      border-radius:10px;
+      overflow:hidden;
+      background:#02060a;
+      border:1px solid rgba(255,255,255,0.04);
+      aspect-ratio:4/3;
+      cursor:pointer;
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .more-card:hover{transform:scale(1.03);box-shadow:0 6px 24px rgba(0,0,0,0.4)}
+    .more-card img{
+      width:100%;height:100%;
+      object-fit:cover;display:block;
+      transition:opacity 0.2s;
+    }
+    .more-card:hover img{opacity:0.8}
+    .more-card .more-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 40%,rgba(5,8,14,0.75));
+      display:flex;align-items:flex-end;padding:8px;
+      opacity:0;transition:opacity 0.2s;
+    }
+    .more-card:hover .more-overlay{opacity:1}
+    .more-overlay span{font-size:11px;color:rgba(255,255,255,0.8)}
+    /* placeholder for more cards */
+    .more-card .more-placeholder{
+      width:100%;height:100%;
+      background:linear-gradient(90deg,rgba(255,255,255,0.03) 25%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.03) 75%);
+      background-size:200% 100%;
+      animation:shimmer 1.8s infinite;
+    }
+
+    /* more-work lightbox reuses logoModal styles but larger */
+    #moreModal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(4,7,12,0.92);
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:999;
+    }
+    #moreModal.open{display:flex}
+    #moreModal .modal-box{
+      position:relative;
+      max-width:760px;
+      width:100%;
+      background:linear-gradient(180deg,#071021,#081727);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px;
+      padding:24px;
+      text-align:center;
+    }
+    #moreModal img{max-width:100%;max-height:520px;object-fit:contain;border-radius:8px}
+    #moreModal .modal-title{margin-top:14px;font-size:15px;font-weight:600}
+    #moreModal .modal-close{
+      position:absolute;top:12px;right:14px;
+      background:transparent;border:none;
+      color:var(--muted);font-size:20px;cursor:pointer;
+      line-height:1;
+    }
+
+    /* Footer */
+    footer{margin-top:30px;color:var(--muted);font-size:13px;text-align:center;padding-bottom:40px}
+
+    /* Responsive */
+    @media(max-width:880px){
+      header.hero{grid-template-columns:96px 1fr}
+      .project{grid-template-columns:1fr;gap:12px}
+      .slides img{height:200px}
+      .two-col{grid-template-columns:1fr}
+      .logo-grid{grid-template-columns:repeat(3,1fr)}
+      .more-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:520px){
+      .logo-grid{grid-template-columns:repeat(2,1fr)}
+      .more-grid{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <header class="hero" role="banner">
+      <div class="avatar" aria-hidden="true">
+        <img src="images/profile.png" alt="Adedayo David profile photo" id="profilePhoto">
+      </div>
+      <div>
+        <h1>Adedayo David Fafioye</h1>
+        <div class="role">Graphic Designer — Advertising & Performance Creative</div>
+        <div class="contact">Port Harcourt, Nigeria · +234 902 874 6981 · <a href="mailto:davidadefafs@gmail.com" style="color:var(--accent);text-decoration:none">davidadefafs@gmail.com</a></div>
+        <div class="cta-row">
+          <!--
+            Only resume.pdf is downloadable — all other links open in a new tab.
+            Do NOT add the `download` attribute to any other link.
+          -->
+          <a class="btn" href="resume.pdf" download>Download Resume</a>
+          <a class="ghost" href="https://davidfafs.carrd.co" target="_blank" rel="noopener noreferrer">Portfolio (live)</a>
+        </div>
+        <p class="intro">I design ad creatives, social video, and brand systems that drive clicks and conversions. Fast turnarounds, production-ready files, and measurable creative.</p>
+      </div>
+    </header>
+
+    <!-- Hero strip images -->
+    <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div class="carousel" style="height:120px"><img src="images/hero-1.png" alt=""></div>
+      <div class="carousel" style="height:120px"><img src="images/hero-2.png" alt=""></div>
+      <div class="carousel" style="height:120px"><img src="images/hero-3.png" alt=""></div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────
+         SELECTED WORK
+    ─────────────────────────────────────────────────────── -->
+    <section class="projects" aria-labelledby="projectsHeading">
+      <h2 id="projectsHeading" style="margin-top:22px">Selected Work</h2>
+
+      <!-- Project 1 -->
+      <article class="project">
+        <div>
+          <div class="carousel" data-slides="proj1-1.png,proj1-2.png,proj1-3.png">
+            <div class="slides">
+              <img src="images/proj1-1.png" alt="Project 1 image 1">
+              <img src="images/proj1-2.png" alt="Project 1 image 2">
+              <img src="images/proj1-3.png" alt="Project 1 image 3">
+            </div>
+            <div class="dots" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div>
+          <h3>Ad Campaign — Skincare Launch</h3>
+          <div class="meta">Ad Creatives · Social Video · Banners</div>
+          <p>Short campaign designed to test two hooks: product demo vs testimonial. I delivered 6 ad variants optimized for Reels and feed. Files included captions and platform-specific exports.</p>
+          <div class="project-actions">
+            <a class="btn" href="#" onclick="openCase('case1');return false">View Case</a>
+            <a class="ghost" href="images/proj1-1.png" target="_blank">Open Image</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="project">
+        <div>
+          <div class="carousel" data-slides="proj2-1.png,proj2-2.png,proj2-3.png">
+            <div class="slides">
+              <img src="images/proj2-1.png" alt="Project 2 image 1">
+              <img src="images/proj2-2.png" alt="Project 2 image 2">
+              <img src="images/proj2-3.png" alt="Project 2 image 3">
+            </div>
+            <div class="dots" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div>
+          <h3>Social Ads — DTC Apparel</h3>
+          <div class="meta">Reels / 9:16 edits · Variant testing</div>
+          <p>Produced hooks, captions, and motion edits designed for short watch-time. Created production frames and A/B variants for quick testing in ad platforms.</p>
+          <div class="project-actions">
+            <a class="btn" href="#" onclick="openCase('case2');return false">View Case</a>
+            <a class="ghost" href="images/proj2-1.png" target="_blank">Open Image</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="project">
+        <div>
+          <div class="carousel" data-slides="proj3-1.png,proj3-2.png,proj3-3.png">
+            <div class="slides">
+              <img src="images/proj3-1.png" alt="Project 3 image 1">
+              <img src="images/proj3-2.png" alt="Project 3 image 2">
+              <img src="images/proj3-3.png" alt="Project 3 image 3">
+            </div>
+            <div class="dots" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div>
+          <h3>Brand System & Landing</h3>
+          <div class="meta">Identity · Landing page · Design tokens</div>
+          <p>Designed the brand identity, tokenized styles, and a conversion-focused landing layout to speed handoffs to developers and marketers.</p>
+          <div class="project-actions">
+            <a class="btn" href="#" onclick="openCase('case3');return false">View Case</a>
+            <a class="ghost" href="images/proj3-1.png" target="_blank">Open Image</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────
+         LOGO SHOWCASE  (5 logos)
+         How to add your logos:
+           1. Put your logo images inside the `images/` folder.
+           2. Replace each src="images/logo-1.png" with the correct filename.
+           3. Update the label text under each logo.
+    ─────────────────────────────────────────────────────── -->
+    <section class="logos" aria-labelledby="logosHeading">
+      <div class="logos-heading">
+        <h2 id="logosHeading">Logo Design</h2>
+        <span class="tag">5 Marks</span>
+      </div>
+      <div class="logo-grid">
+
+        <!-- Logo 1 — replace src and label -->
+        <div class="logo-card" onclick="openLogo('images/logo-1.png','Logo 1 — Client Name')" title="Click to enlarge">
+          <img src="images/logo-1.png" alt="Logo 1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-placeholder" style="display:none"></div>
+          <span class="logo-label">Logo 1<br><span style="color:rgba(255,255,255,0.3);font-size:10px">Client / Brand</span></span>
+        </div>
+
+        <!-- Logo 2 -->
+        <div class="logo-card" onclick="openLogo('images/logo-2.png','Logo 2 — Client Name')" title="Click to enlarge">
+          <img src="images/logo-2.png" alt="Logo 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-placeholder" style="display:none"></div>
+          <span class="logo-label">Logo 2<br><span style="color:rgba(255,255,255,0.3);font-size:10px">Client / Brand</span></span>
+        </div>
+
+        <!-- Logo 3 -->
+        <div class="logo-card" onclick="openLogo('images/logo-3.png','Logo 3 — Client Name')" title="Click to enlarge">
+          <img src="images/logo-3.png" alt="Logo 3" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-placeholder" style="display:none"></div>
+          <span class="logo-label">Logo 3<br><span style="color:rgba(255,255,255,0.3);font-size:10px">Client / Brand</span></span>
+        </div>
+
+        <!-- Logo 4 -->
+        <div class="logo-card" onclick="openLogo('images/logo-4.png','Logo 4 — Client Name')" title="Click to enlarge">
+          <img src="images/logo-4.png" alt="Logo 4" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-placeholder" style="display:none"></div>
+          <span class="logo-label">Logo 4<br><span style="color:rgba(255,255,255,0.3);font-size:10px">Client / Brand</span></span>
+        </div>
+
+        <!-- Logo 5 -->
+        <div class="logo-card" onclick="openLogo('images/logo-5.png','Logo 5 — Client Name')" title="Click to enlarge">
+          <img src="images/logo-5.png" alt="Logo 5" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-placeholder" style="display:none"></div>
+          <span class="logo-label">Logo 5<br><span style="color:rgba(255,255,255,0.3);font-size:10px">Client / Brand</span></span>
+        </div>
+
+      </div><!-- /logo-grid -->
+    </section>
+
+    <!-- Logo lightbox modal -->
+    <div id="logoModal" role="dialog" aria-modal="true" aria-labelledby="logoModalTitle">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeLogo()" aria-label="Close">✕</button>
+        <img id="logoModalImg" src="" alt="">
+        <div id="logoModalTitle" class="modal-title"></div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────
+         VIEW MORE  (10 designs from /view_more folder)
+         How to add your designs:
+           1. Create a folder called `view_more/` next to index.html.
+           2. Save your 10 design images there.
+           3. Replace each src="view_more/design-1.png" with your filenames.
+           4. Update the label inside each .more-overlay span.
+         NOTE: These images open in a lightbox — they are NOT downloadable.
+    ─────────────────────────────────────────────────────── -->
+    <section class="more-work" aria-labelledby="moreHeading">
+      <div class="more-heading">
+        <h2 id="moreHeading">More Work</h2>
+        <span class="folder-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          view_more/
+        </span>
+      </div>
+
+      <div class="more-grid">
+
+        <!-- Design 1 — replace src and label -->
+        <div class="more-card" onclick="openMore('view_more/design-1.png','Design 01')" title="View Design 01">
+          <img src="view_more/design-1.png" alt="Design 01" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 01</span></div>
+        </div>
+
+        <!-- Design 2 -->
+        <div class="more-card" onclick="openMore('view_more/design-2.png','Design 02')" title="View Design 02">
+          <img src="view_more/design-2.png" alt="Design 02" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 02</span></div>
+        </div>
+
+        <!-- Design 3 -->
+        <div class="more-card" onclick="openMore('view_more/design-3.png','Design 03')" title="View Design 03">
+          <img src="view_more/design-3.png" alt="Design 03" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 03</span></div>
+        </div>
+
+        <!-- Design 4 -->
+        <div class="more-card" onclick="openMore('view_more/design-4.png','Design 04')" title="View Design 04">
+          <img src="view_more/design-4.png" alt="Design 04" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 04</span></div>
+        </div>
+
+        <!-- Design 5 -->
+        <div class="more-card" onclick="openMore('view_more/design-5.png','Design 05')" title="View Design 05">
+          <img src="view_more/design-5.png" alt="Design 05" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 05</span></div>
+        </div>
+
+        <!-- Design 6 -->
+        <div class="more-card" onclick="openMore('view_more/design-6.png','Design 06')" title="View Design 06">
+          <img src="view_more/design-6.png" alt="Design 06" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 06</span></div>
+        </div>
+
+        <!-- Design 7 -->
+        <div class="more-card" onclick="openMore('view_more/design-7.png','Design 07')" title="View Design 07">
+          <img src="view_more/design-7.png" alt="Design 07" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 07</span></div>
+        </div>
+
+        <!-- Design 8 -->
+        <div class="more-card" onclick="openMore('view_more/design-8.png','Design 08')" title="View Design 08">
+          <img src="view_more/design-8.png" alt="Design 08" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 08</span></div>
+        </div>
+
+        <!-- Design 9 -->
+        <div class="more-card" onclick="openMore('view_more/design-9.png','Design 09')" title="View Design 09">
+          <img src="view_more/design-9.png" alt="Design 09" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 09</span></div>
+        </div>
+
+        <!-- Design 10 -->
+        <div class="more-card" onclick="openMore('view_more/design-10.png','Design 10')" title="View Design 10">
+          <img src="view_more/design-10.png" alt="Design 10" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="more-placeholder" style="display:none"></div>
+          <div class="more-overlay"><span>Design 10</span></div>
+        </div>
+
+      </div><!-- /more-grid -->
+
+      <p style="font-size:13px;color:var(--muted);margin-top:12px">
+        Images are for viewing only — right-click saving is disabled on this portfolio.
+      </p>
+    </section>
+
+    <!-- View More lightbox modal -->
+    <div id="moreModal" role="dialog" aria-modal="true" aria-labelledby="moreModalTitle">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeMore()" aria-label="Close">✕</button>
+        <img id="moreModalImg" src="" alt="">
+        <div id="moreModalTitle" class="modal-title"></div>
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────
+         HIDDEN CASE STUDY DATA
+    ─────────────────────────────────────────────────────── -->
+    <div class="case" id="case1" style="display:none">
+      <h3>Skincare Launch — One-page case</h3>
+      <div class="two-col">
+        <div>
+          <strong>Problem</strong>
+          <p>Create short ads that increase clicks for a new serum launch.</p>
+          <strong>Approach</strong>
+          <p>Test hooks: demo vs testimonial. Create captioned 9:16 edits and 1:1 feed versions.</p>
+        </div>
+        <div>
+          <strong>Result</strong>
+          <p>Two winning hooks ready for scale (example KPIs available on request). Files: 6 variants, captions, thumbnails.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case" id="case2" style="display:none">
+      <h3>DTC Apparel — Short-form ads</h3>
+      <div class="two-col">
+        <div>
+          <strong>Problem</strong>
+          <p>Low watch-through rate on Reels ads.</p>
+          <strong>Approach</strong>
+          <p>Introduce 0–2s hooks and pattern interrupts; add captions and strong CTA at final frame.</p>
+        </div>
+        <div>
+          <strong>Result</strong>
+          <p>Improved early engagement in tests; created template system for quick edits.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case" id="case3" style="display:none">
+      <h3>Brand System & Landing</h3>
+      <div class="two-col">
+        <div>
+          <strong>Problem</strong>
+          <p>Slow handoffs and inconsistent assets across channels.</p>
+          <strong>Approach</strong>
+          <p>Create design tokens, Figma components, and export presets for marketing assets.</p>
+        </div>
+        <div>
+          <strong>Result</strong>
+          <p>Reduced asset production time and improved consistency across campaigns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case study modal -->
+    <div id="caseModal" style="display:none;position:fixed;inset:0;background:rgba(5,8,12,0.85);align-items:center;justify-content:center;padding:20px;z-index:998">
+      <div id="caseContent" style="max-width:980px;background:linear-gradient(180deg,#071021,#081727);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);color:var(--white)">
+        <button style="float:right;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer" onclick="closeCase()">✕</button>
+        <div id="caseInner"></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div style="margin-bottom:12px">Want to work together? Email <a href="mailto:davidadefafs@gmail.com" style="color:var(--accent);text-decoration:none">davidadefafs@gmail.com</a> — or download my resume below.</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <!-- Only resume.pdf has `download` — intentional -->
+        <a class="ghost" href="resume.pdf" download>Download Resume (PDF)</a>
+        <a class="ghost" href="https://davidfafs.carrd.co" target="_blank" rel="noopener noreferrer">Live site / Carrd</a>
+      </div>
+      <div style="margin-top:14px;color:var(--muted)">© Vizea Studio — Adedayo David Fafioye</div>
+    </footer>
+
+  </div><!-- /wrap -->
+
+  <script>
+    /* ── Carousels ─────────────────────────────────────────── */
+    document.querySelectorAll('.carousel').forEach(function(car){
+      const slides = car.querySelector('.slides');
+      if(!slides) return;
+      const imgs = slides.querySelectorAll('img');
+      const dots = car.querySelector('.dots');
+      if(dots){
+        imgs.forEach(function(img,i){
+          const d = document.createElement('div');
+          d.className='dot'+(i===0?' active':'');
+          d.dataset.index=i;
+          d.addEventListener('click',function(){ goTo(car,i); });
+          dots.appendChild(d);
+        });
+      }
+      car._index=0;
+      setInterval(function(){
+        let idx=(car._index+1)%imgs.length;
+        goTo(car,idx);
+      },3500);
+    });
+
+    function goTo(carousel,idx){
+      const slides=carousel.querySelector('.slides');
+      const imgs=slides.querySelectorAll('img');
+      slides.style.transform='translateX('+(-idx*100)+'%)';
+      carousel._index=idx;
+      const dots=carousel.querySelectorAll('.dot');
+      dots.forEach(function(d){ d.classList.remove('active'); });
+      if(dots[idx]) dots[idx].classList.add('active');
+    }
+
+    /* ── Case modals ───────────────────────────────────────── */
+    function openCase(id){
+      const modal=document.getElementById('caseModal');
+      const inner=document.getElementById('caseInner');
+      inner.innerHTML=document.getElementById(id).innerHTML;
+      modal.style.display='flex';
+    }
+    function closeCase(){ document.getElementById('caseModal').style.display='none'; }
+
+    /* ── Logo lightbox ─────────────────────────────────────── */
+    function openLogo(src, title){
+      document.getElementById('logoModalImg').src=src;
+      document.getElementById('logoModalTitle').textContent=title;
+      document.getElementById('logoModal').classList.add('open');
+    }
+    function closeLogo(){
+      document.getElementById('logoModal').classList.remove('open');
+    }
+
+    /* ── View More lightbox ────────────────────────────────── */
+    function openMore(src, title){
+      document.getElementById('moreModalImg').src=src;
+      document.getElementById('moreModalTitle').textContent=title;
+      document.getElementById('moreModal').classList.add('open');
+    }
+    function closeMore(){
+      document.getElementById('moreModal').classList.remove('open');
+    }
+
+    /* Close modals on backdrop click */
+    document.getElementById('logoModal').addEventListener('click',function(e){
+      if(e.target===this) closeLogo();
+    });
+    document.getElementById('moreModal').addEventListener('click',function(e){
+      if(e.target===this) closeMore();
+    });
+
+    /* Close modals on Escape key */
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){ closeLogo(); closeMore(); closeCase(); }
+    });
+
+    /* Disable right-click on all images to discourage easy saving */
+    document.addEventListener('contextmenu',function(e){
+      if(e.target.tagName==='IMG'){ e.preventDefault(); }
+    });
+
+    /* Profile photo fallback */
+    document.getElementById('profilePhoto').addEventListener('error',function(){
+      this.src='https://via.placeholder.com/300?text=Profile';
+    });
+  </script>
+</body>
+</html>
